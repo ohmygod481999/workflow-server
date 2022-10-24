@@ -1,0 +1,1084 @@
+{
+    "metadata": {
+        "annotations": {
+            "workflows.argoproj.io/pod-name-format": "v2"
+        },
+        "creationTimestamp": "2022-10-21T08:49:06Z",
+        "generateName": "caro-template-",
+        "generation": 5,
+        "labels": {
+            "workflows.argoproj.io/completed": "true",
+            "workflows.argoproj.io/phase": "Succeeded",
+            "workflows.argoproj.io/resubmitted-from-workflow": "caro-template-j25dz",
+            "workflows.argoproj.io/workflow-template": "caro-template"
+        },
+        "managedFields": [
+            {
+                "apiVersion": "argoproj.io/v1alpha1",
+                "fieldsType": "FieldsV1",
+                "fieldsV1": {
+                    "f:metadata": {
+                        "f:annotations": {
+                            ".": {},
+                            "f:workflows.argoproj.io/pod-name-format": {}
+                        },
+                        "f:generateName": {},
+                        "f:labels": {
+                            ".": {},
+                            "f:workflows.argoproj.io/resubmitted-from-workflow": {},
+                            "f:workflows.argoproj.io/workflow-template": {}
+                        }
+                    },
+                    "f:spec": {}
+                },
+                "manager": "argo",
+                "operation": "Update",
+                "time": "2022-10-21T08:49:06Z"
+            },
+            {
+                "apiVersion": "argoproj.io/v1alpha1",
+                "fieldsType": "FieldsV1",
+                "fieldsV1": {
+                    "f:metadata": {
+                        "f:labels": {
+                            "f:workflows.argoproj.io/completed": {},
+                            "f:workflows.argoproj.io/phase": {}
+                        }
+                    },
+                    "f:status": {}
+                },
+                "manager": "workflow-controller",
+                "operation": "Update",
+                "time": "2022-10-21T08:49:36Z"
+            }
+        ],
+        "name": "caro-template-hgdpf",
+        "namespace": "argo",
+        "resourceVersion": "4891319",
+        "selfLink": "/apis/argoproj.io/v1alpha1/namespaces/argo/workflows/caro-template-hgdpf",
+        "uid": "949a8b90-c998-42e3-89d1-f087eee84f7c"
+    },
+    "spec": {
+        "entrypoint": "booking",
+        "arguments": {
+            "Parameters": [
+                {
+                    "name": "call_unique_id",
+                    "value": "7a2afc74-51c0-4fdb-8646-11d346a69e9a",
+                    "valueFrom": {
+                        "path": ""
+                    }
+                },
+                {
+                    "name": "deployment_id",
+                    "value": "de009ef1-a8ed-44b2-9b14-26f0162771fa",
+                    "valueFrom": {
+                        "path": ""
+                    }
+                },
+                {
+                    "name": "api_key",
+                    "value": "U0lQLjE2NjEyMjU0MDUxNjQueFJzQU5nOWROUXFUWm1OQzAwT2pVOWt6bXF2Uk5BUUhrQ2xXT3I5bUVsWlQyX1ctQXBVRGZ2WGRkTUxuWUE=",
+                    "valueFrom": {
+                        "path": ""
+                    }
+                },
+                {
+                    "name": "time",
+                    "value": "1663644766000",
+                    "valueFrom": {
+                        "path": ""
+                    }
+                },
+                {
+                    "name": "phoneNumber",
+                    "value": "0839400201",
+                    "valueFrom": {
+                        "path": ""
+                    }
+                },
+                {
+                    "name": "receivedPhoneNumber",
+                    "value": "02432323232",
+                    "valueFrom": {
+                        "path": ""
+                    }
+                },
+                {
+                    "name": "address",
+                    "value": "royal+city",
+                    "valueFrom": {
+                        "path": ""
+                    }
+                },
+                {
+                    "name": "numberCar",
+                    "value": "1",
+                    "valueFrom": {
+                        "path": ""
+                    }
+                },
+                {
+                    "name": "carTypeId",
+                    "value": "1",
+                    "valueFrom": {
+                        "path": ""
+                    }
+                },
+                {
+                    "name": "outbound",
+                    "value": "1",
+                    "valueFrom": {
+                        "path": ""
+                    }
+                }
+            ]
+        },
+        "workflowTemplateRef": {
+            "name": "caro-template"
+        }
+    },
+    "status": {
+        "phase": "Succeeded",
+        "startedAt": "2022-10-21T08:49:06Z",
+        "finishedAt": "2022-10-21T08:49:36Z",
+        "estimatedDuration": 30,
+        "progress": "4/4",
+        "nodes": {
+            "caro-template-hgdpf": {
+                "id": "caro-template-hgdpf",
+                "name": "caro-template-hgdpf",
+                "displayName": "caro-template-hgdpf",
+                "type": "DAG",
+                "TemplateName": "booking",
+                "TemplateScope": "local/",
+                "phase": "Succeeded",
+                "boundaryID": "",
+                "startedAt": "2022-10-21T08:49:06Z",
+                "finishedAt": "2022-10-21T08:49:36Z",
+                "estimatedDuration": 30,
+                "progress": "4/4",
+                "resourcesDuration": {
+                    "cpu": 12,
+                    "int": 0
+                },
+                "inputs": {
+                    "parameters": [
+                        {
+                            "name": "call_unique_id",
+                            "value": "7a2afc74-51c0-4fdb-8646-11d346a69e9a",
+                            "valueFrom": {
+                                "path": ""
+                            }
+                        },
+                        {
+                            "name": "deployment_id",
+                            "value": "de009ef1-a8ed-44b2-9b14-26f0162771fa",
+                            "valueFrom": {
+                                "path": ""
+                            }
+                        },
+                        {
+                            "name": "api_key",
+                            "value": "U0lQLjE2NjEyMjU0MDUxNjQueFJzQU5nOWROUXFUWm1OQzAwT2pVOWt6bXF2Uk5BUUhrQ2xXT3I5bUVsWlQyX1ctQXBVRGZ2WGRkTUxuWUE=",
+                            "valueFrom": {
+                                "path": ""
+                            }
+                        },
+                        {
+                            "name": "time",
+                            "value": "1663644766000",
+                            "valueFrom": {
+                                "path": ""
+                            }
+                        },
+                        {
+                            "name": "receivedPhoneNumber",
+                            "value": "02432323232",
+                            "valueFrom": {
+                                "path": ""
+                            }
+                        },
+                        {
+                            "name": "phoneNumber",
+                            "value": "0839400201",
+                            "valueFrom": {
+                                "path": ""
+                            }
+                        },
+                        {
+                            "name": "address",
+                            "value": "royal+city",
+                            "valueFrom": {
+                                "path": ""
+                            }
+                        },
+                        {
+                            "name": "numberCar",
+                            "value": "1",
+                            "valueFrom": {
+                                "path": ""
+                            }
+                        },
+                        {
+                            "name": "carTypeId",
+                            "value": "1",
+                            "valueFrom": {
+                                "path": ""
+                            }
+                        },
+                        {
+                            "name": "outbound",
+                            "value": "1",
+                            "valueFrom": {
+                                "path": ""
+                            }
+                        }
+                    ],
+                    "artifacts": null
+                },
+                "outputs": {
+                    "parameters": [
+                        {
+                            "name": "Long",
+                            "value": "Ahihi"
+                        }
+                    ],
+                    "artifacts": null,
+                    "exitCode": ""
+                },
+                "children": ["caro-template-hgdpf-2519900843"],
+                "outboundNodes": ["caro-template-hgdpf-1197814098"],
+                "hostNodeName": ""
+            },
+            "caro-template-hgdpf-1197814098": {
+                "id": "caro-template-hgdpf-1197814098",
+                "name": "caro-template-hgdpf.book-caro",
+                "displayName": "book-caro",
+                "type": "Pod",
+                "TemplateName": "book-caro",
+                "TemplateScope": "local/",
+                "phase": "Succeeded",
+                "boundaryID": "caro-template-hgdpf",
+                "startedAt": "2022-10-21T08:49:26Z",
+                "finishedAt": "2022-10-21T08:49:30Z",
+                "estimatedDuration": 5,
+                "progress": "1/1",
+                "resourcesDuration": {
+                    "cpu": 3,
+                    "int": 0
+                },
+                "inputs": {
+                    "parameters": [
+                        {
+                            "name": "call_unique_id",
+                            "value": "7a2afc74-51c0-4fdb-8646-11d346a69e9a",
+                            "valueFrom": {
+                                "path": ""
+                            }
+                        },
+                        {
+                            "name": "id",
+                            "value": "6290753b-d924-3025-968c-ca76d830e85a",
+                            "valueFrom": {
+                                "path": ""
+                            }
+                        },
+                        {
+                            "name": "address",
+                            "value": "Royal City, WA 99357, USA",
+                            "valueFrom": {
+                                "path": ""
+                            }
+                        },
+                        {
+                            "name": "lat",
+                            "value": "46.90097009999999",
+                            "valueFrom": {
+                                "path": ""
+                            }
+                        },
+                        {
+                            "name": "long",
+                            "value": "-119.6305912",
+                            "valueFrom": {
+                                "path": ""
+                            }
+                        },
+                        {
+                            "name": "phoneNumber",
+                            "value": "0839400201",
+                            "valueFrom": {
+                                "path": ""
+                            }
+                        },
+                        {
+                            "name": "receivedPhoneNumber",
+                            "value": "02432323232",
+                            "valueFrom": {
+                                "path": ""
+                            }
+                        },
+                        {
+                            "name": "time",
+                            "value": "1663644766000",
+                            "valueFrom": {
+                                "path": ""
+                            }
+                        },
+                        {
+                            "name": "numberCar",
+                            "value": "1",
+                            "valueFrom": {
+                                "path": ""
+                            }
+                        },
+                        {
+                            "name": "carTypeId",
+                            "value": "1",
+                            "valueFrom": {
+                                "path": ""
+                            }
+                        },
+                        {
+                            "name": "textFromSpeech",
+                            "value": "map[data:[map[name:a_speak text:$START timestamp:1.665393675332e+12] map[name:b_speak text:Công ty tài chính X xin kính chào Quý khách . Quý khách đang gọi đến tổng đài hỗ trợ của chúng tôi . Chúng tôi có thể hỗ trợ thông tin gì cho Quý khách ạ timestamp:1.665393689402e+12] map[name:a_speak text:sao timestamp:1.665393692265e+12] map[name:b_speak text:Vui lòng chờ trong giây lát. Cuộc gọi đang được nối máy đến tổng đài viên  timestamp:1.665393716138e+12] map[name:a_speak text:Bên em có dịch vụ gì timestamp:1.665393716218e+12] map[name:a_hangup text:Bên em có dịch vụ gì timestamp:1.665393722428e+12] map[name:b_speak text:Vui lòng chờ trong giây lát. Cuộc gọi đang được nối máy đến tổng đài viên  timestamp:1.665393781019e+12]]]",
+                            "valueFrom": {
+                                "path": ""
+                            }
+                        },
+                        {
+                            "name": "outbound",
+                            "value": "1",
+                            "valueFrom": {
+                                "path": ""
+                            }
+                        }
+                    ],
+                    "artifacts": [
+                        {
+                            "name": "context1",
+                            "path": "/opt/input_context1.txt",
+                            "s3": {
+                                "Key": "caro-template-hgdpf/caro-template-hgdpf-get-lat-long-2580444334/context.tgz"
+                            }
+                        },
+                        {
+                            "name": "context2",
+                            "path": "/opt/input_context2.txt",
+                            "s3": {
+                                "Key": "caro-template-hgdpf/caro-template-hgdpf-get-transcript-3490117790/context.tgz"
+                            }
+                        }
+                    ]
+                },
+                "outputs": {
+                    "parameters": [
+                        {
+                            "name": "context",
+                            "value": "{\"get-lat-long\": {\"status_code\": 200, \"header\": {\"Content-Type\": \"application/json; charset=UTF-8\", \"Date\": \"Fri, 21 Oct 2022 08:49:19 GMT\", \"Pragma\": \"no-cache\", \"Expires\": \"Fri, 01 Jan 1990 00:00:00 GMT\", \"Cache-Control\": \"no-cache, must-revalidate\", \"Vary\": \"Accept-Language\", \"Access-Control-Allow-Origin\": \"*\", \"Content-Encoding\": \"gzip\", \"Server\": \"mafe\", \"X-XSS-Protection\": \"0\", \"X-Frame-Options\": \"SAMEORIGIN\", \"Server-Timing\": \"gfet4t7; dur=35\", \"Alt-Svc\": \"h3=\\\":443\\\"; ma=2592000,h3-29=\\\":443\\\"; ma=2592000,h3-Q050=\\\":443\\\"; ma=2592000,h3-Q046=\\\":443\\\"; ma=2592000,h3-Q043=\\\":443\\\"; ma=2592000,quic=\\\":443\\\"; ma=2592000; v=\\\"46,43\\\"\", \"Transfer-Encoding\": \"chunked\"}, \"body\": {\"results\": [{\"address_components\": [{\"long_name\": \"Royal City\", \"short_name\": \"Royal City\", \"types\": [\"locality\", \"political\"]}, {\"long_name\": \"Grant County\", \"short_name\": \"Grant County\", \"types\": [\"administrative_area_level_2\", \"political\"]}, {\"long_name\": \"Washington\", \"short_name\": \"WA\", \"types\": [\"administrative_area_level_1\", \"political\"]}, {\"long_name\": \"United States\", \"short_name\": \"US\", \"types\": [\"country\", \"political\"]}, {\"long_name\": \"99357\", \"short_name\": \"99357\", \"types\": [\"postal_code\"]}], \"formatted_address\": \"Royal City, WA 99357, USA\", \"geometry\": {\"bounds\": {\"northeast\": {\"lat\": 46.913854, \"lng\": -119.5600471}, \"southwest\": {\"lat\": 46.8811279, \"lng\": -119.6454809}}, \"location\": {\"lat\": 46.90097009999999, \"lng\": -119.6305912}, \"location_type\": \"APPROXIMATE\", \"viewport\": {\"northeast\": {\"lat\": 46.913854, \"lng\": -119.5600471}, \"southwest\": {\"lat\": 46.8811279, \"lng\": -119.6454809}}}, \"place_id\": \"ChIJg8XuqckImVQRsQaD_-hMdw8\", \"types\": [\"locality\", \"political\"]}], \"status\": \"OK\"}}, \"get-transcript\": {\"status_code\": 200, \"header\": {\"Date\": \"Fri, 21 Oct 2022 08:49:19 GMT\", \"Content-Type\": \"application/json\", \"Content-Length\": \"852\", \"Connection\": \"keep-alive\", \"X-Kong-Upstream-Latency\": \"18\", \"X-Kong-Proxy-Latency\": \"0\", \"Via\": \"kong/2.6.0\"}, \"body\": {\"data\": [{\"timestamp\": 1665393675332, \"name\": \"a_speak\", \"text\": \"$START\"}, {\"timestamp\": 1665393689402, \"name\": \"b_speak\", \"text\": \"Công ty tài chính X xin kính chào Quý khách . Quý khách đang gọi đến tổng đài hỗ trợ của chúng tôi . Chúng tôi có thể hỗ trợ thông tin gì cho Quý khách ạ\"}, {\"timestamp\": 1665393692265, \"name\": \"a_speak\", \"text\": \"sao\"}, {\"timestamp\": 1665393716138, \"name\": \"b_speak\", \"text\": \"Vui lòng chờ trong giây lát. Cuộc gọi đang được nối máy đến tổng đài viên \"}, {\"timestamp\": 1665393716218, \"name\": \"a_speak\", \"text\": \"Bên em có dịch vụ gì\"}, {\"timestamp\": 1665393722428, \"name\": \"a_hangup\", \"text\": \"Bên em có dịch vụ gì\"}, {\"timestamp\": 1665393781019, \"name\": \"b_speak\", \"text\": \"Vui lòng chờ trong giây lát. Cuộc gọi đang được nối máy đến tổng đài viên \"}]}}, \"caro\": {\"status_code\": 200, \"header\": {\"Access-Control-Allow-Methods\": \"POST\", \"Access-Control-Allow-Headers\": \"*\", \"Access-Control-Allow-Credentials\": \"true\", \"Vary\": \"Origin, Access-Control-Request-Method, Access-Control-Request-Headers\", \"Content-Type\": \"application/json\", \"Content-Length\": \"56\", \"Date\": \"Fri, 21 Oct 2022 08:49:29 GMT\", \"Keep-Alive\": \"timeout=60\", \"Connection\": \"keep-alive\"}, \"body\": {\"message\": \"OK\", \"errors\": null, \"data\": [], \"optional\": null}}}",
+                            "valueFrom": {
+                                "path": "/opt/output-response.txt"
+                            }
+                        }
+                    ],
+                    "artifacts": [
+                        {
+                            "name": "main-logs",
+                            "path": "",
+                            "s3": {
+                                "Key": "caro-template-hgdpf/caro-template-hgdpf-book-caro-1197814098/main.log"
+                            }
+                        }
+                    ],
+                    "exitCode": "0"
+                },
+                "children": null,
+                "outboundNodes": null,
+                "hostNodeName": "longvb-pc"
+            },
+            "caro-template-hgdpf-2519900843": {
+                "id": "caro-template-hgdpf-2519900843",
+                "name": "caro-template-hgdpf.prepare-artifact",
+                "displayName": "prepare-artifact",
+                "type": "Pod",
+                "TemplateName": "prepare-artifact",
+                "TemplateScope": "local/",
+                "phase": "Succeeded",
+                "boundaryID": "caro-template-hgdpf",
+                "startedAt": "2022-10-21T08:49:06Z",
+                "finishedAt": "2022-10-21T08:49:10Z",
+                "estimatedDuration": 4,
+                "progress": "1/1",
+                "resourcesDuration": {
+                    "cpu": 3,
+                    "int": 0
+                },
+                "inputs": {
+                    "parameters": null,
+                    "artifacts": null
+                },
+                "outputs": {
+                    "parameters": null,
+                    "artifacts": [
+                        {
+                            "name": "context",
+                            "path": "/tmp/output-response.txt",
+                            "s3": {
+                                "Key": "caro-template-hgdpf/caro-template-hgdpf-prepare-artifact-2519900843/context.tgz"
+                            }
+                        },
+                        {
+                            "name": "main-logs",
+                            "path": "",
+                            "s3": {
+                                "Key": "caro-template-hgdpf/caro-template-hgdpf-prepare-artifact-2519900843/main.log"
+                            }
+                        }
+                    ],
+                    "exitCode": "0"
+                },
+                "children": [
+                    "caro-template-hgdpf-3490117790",
+                    "caro-template-hgdpf-2580444334"
+                ],
+                "outboundNodes": null,
+                "hostNodeName": "longvb-pc"
+            },
+            "caro-template-hgdpf-2580444334": {
+                "id": "caro-template-hgdpf-2580444334",
+                "name": "caro-template-hgdpf.get-lat-long",
+                "displayName": "get-lat-long",
+                "type": "Pod",
+                "TemplateName": "get-lat-long",
+                "TemplateScope": "local/",
+                "phase": "Succeeded",
+                "boundaryID": "caro-template-hgdpf",
+                "startedAt": "2022-10-21T08:49:16Z",
+                "finishedAt": "2022-10-21T08:49:20Z",
+                "estimatedDuration": 5,
+                "progress": "1/1",
+                "resourcesDuration": {
+                    "cpu": 3,
+                    "int": 0
+                },
+                "inputs": {
+                    "parameters": [
+                        {
+                            "name": "address",
+                            "value": "royal+city",
+                            "valueFrom": {
+                                "path": ""
+                            }
+                        }
+                    ],
+                    "artifacts": [
+                        {
+                            "name": "context",
+                            "path": "/opt/input_context.txt",
+                            "s3": {
+                                "Key": "caro-template-hgdpf/caro-template-hgdpf-prepare-artifact-2519900843/context.tgz"
+                            }
+                        }
+                    ]
+                },
+                "outputs": {
+                    "parameters": [
+                        {
+                            "name": "context",
+                            "value": "{\"get-lat-long\": {\"status_code\": 200, \"header\": {\"Content-Type\": \"application/json; charset=UTF-8\", \"Date\": \"Fri, 21 Oct 2022 08:49:19 GMT\", \"Pragma\": \"no-cache\", \"Expires\": \"Fri, 01 Jan 1990 00:00:00 GMT\", \"Cache-Control\": \"no-cache, must-revalidate\", \"Vary\": \"Accept-Language\", \"Access-Control-Allow-Origin\": \"*\", \"Content-Encoding\": \"gzip\", \"Server\": \"mafe\", \"X-XSS-Protection\": \"0\", \"X-Frame-Options\": \"SAMEORIGIN\", \"Server-Timing\": \"gfet4t7; dur=35\", \"Alt-Svc\": \"h3=\\\":443\\\"; ma=2592000,h3-29=\\\":443\\\"; ma=2592000,h3-Q050=\\\":443\\\"; ma=2592000,h3-Q046=\\\":443\\\"; ma=2592000,h3-Q043=\\\":443\\\"; ma=2592000,quic=\\\":443\\\"; ma=2592000; v=\\\"46,43\\\"\", \"Transfer-Encoding\": \"chunked\"}, \"body\": {\"results\": [{\"address_components\": [{\"long_name\": \"Royal City\", \"short_name\": \"Royal City\", \"types\": [\"locality\", \"political\"]}, {\"long_name\": \"Grant County\", \"short_name\": \"Grant County\", \"types\": [\"administrative_area_level_2\", \"political\"]}, {\"long_name\": \"Washington\", \"short_name\": \"WA\", \"types\": [\"administrative_area_level_1\", \"political\"]}, {\"long_name\": \"United States\", \"short_name\": \"US\", \"types\": [\"country\", \"political\"]}, {\"long_name\": \"99357\", \"short_name\": \"99357\", \"types\": [\"postal_code\"]}], \"formatted_address\": \"Royal City, WA 99357, USA\", \"geometry\": {\"bounds\": {\"northeast\": {\"lat\": 46.913854, \"lng\": -119.5600471}, \"southwest\": {\"lat\": 46.8811279, \"lng\": -119.6454809}}, \"location\": {\"lat\": 46.90097009999999, \"lng\": -119.6305912}, \"location_type\": \"APPROXIMATE\", \"viewport\": {\"northeast\": {\"lat\": 46.913854, \"lng\": -119.5600471}, \"southwest\": {\"lat\": 46.8811279, \"lng\": -119.6454809}}}, \"place_id\": \"ChIJg8XuqckImVQRsQaD_-hMdw8\", \"types\": [\"locality\", \"political\"]}], \"status\": \"OK\"}}}",
+                            "valueFrom": {
+                                "path": "/opt/output-response.txt"
+                            }
+                        }
+                    ],
+                    "artifacts": [
+                        {
+                            "name": "context",
+                            "path": "/opt/output-response.txt",
+                            "s3": {
+                                "Key": "caro-template-hgdpf/caro-template-hgdpf-get-lat-long-2580444334/context.tgz"
+                            }
+                        },
+                        {
+                            "name": "main-logs",
+                            "path": "",
+                            "s3": {
+                                "Key": "caro-template-hgdpf/caro-template-hgdpf-get-lat-long-2580444334/main.log"
+                            }
+                        }
+                    ],
+                    "exitCode": "0"
+                },
+                "children": ["caro-template-hgdpf-1197814098"],
+                "outboundNodes": null,
+                "hostNodeName": "longvb-pc"
+            },
+            "caro-template-hgdpf-3490117790": {
+                "id": "caro-template-hgdpf-3490117790",
+                "name": "caro-template-hgdpf.get-transcript",
+                "displayName": "get-transcript",
+                "type": "Pod",
+                "TemplateName": "get-transcript",
+                "TemplateScope": "local/",
+                "phase": "Succeeded",
+                "boundaryID": "caro-template-hgdpf",
+                "startedAt": "2022-10-21T08:49:16Z",
+                "finishedAt": "2022-10-21T08:49:20Z",
+                "estimatedDuration": 5,
+                "progress": "1/1",
+                "resourcesDuration": {
+                    "cpu": 3,
+                    "int": 0
+                },
+                "inputs": {
+                    "parameters": [
+                        {
+                            "name": "call_unique_id",
+                            "value": "7a2afc74-51c0-4fdb-8646-11d346a69e9a",
+                            "valueFrom": {
+                                "path": ""
+                            }
+                        },
+                        {
+                            "name": "deployment_id",
+                            "value": "de009ef1-a8ed-44b2-9b14-26f0162771fa",
+                            "valueFrom": {
+                                "path": ""
+                            }
+                        },
+                        {
+                            "name": "api_key",
+                            "value": "U0lQLjE2NjEyMjU0MDUxNjQueFJzQU5nOWROUXFUWm1OQzAwT2pVOWt6bXF2Uk5BUUhrQ2xXT3I5bUVsWlQyX1ctQXBVRGZ2WGRkTUxuWUE=",
+                            "valueFrom": {
+                                "path": ""
+                            }
+                        }
+                    ],
+                    "artifacts": [
+                        {
+                            "name": "context",
+                            "path": "/opt/input_context.txt",
+                            "s3": {
+                                "Key": "caro-template-hgdpf/caro-template-hgdpf-prepare-artifact-2519900843/context.tgz"
+                            }
+                        }
+                    ]
+                },
+                "outputs": {
+                    "parameters": [
+                        {
+                            "name": "context",
+                            "value": "{\"get-transcript\": {\"status_code\": 200, \"header\": {\"Date\": \"Fri, 21 Oct 2022 08:49:19 GMT\", \"Content-Type\": \"application/json\", \"Content-Length\": \"852\", \"Connection\": \"keep-alive\", \"X-Kong-Upstream-Latency\": \"18\", \"X-Kong-Proxy-Latency\": \"0\", \"Via\": \"kong/2.6.0\"}, \"body\": {\"data\": [{\"timestamp\": 1665393675332, \"name\": \"a_speak\", \"text\": \"$START\"}, {\"timestamp\": 1665393689402, \"name\": \"b_speak\", \"text\": \"Công ty tài chính X xin kính chào Quý khách . Quý khách đang gọi đến tổng đài hỗ trợ của chúng tôi . Chúng tôi có thể hỗ trợ thông tin gì cho Quý khách ạ\"}, {\"timestamp\": 1665393692265, \"name\": \"a_speak\", \"text\": \"sao\"}, {\"timestamp\": 1665393716138, \"name\": \"b_speak\", \"text\": \"Vui lòng chờ trong giây lát. Cuộc gọi đang được nối máy đến tổng đài viên \"}, {\"timestamp\": 1665393716218, \"name\": \"a_speak\", \"text\": \"Bên em có dịch vụ gì\"}, {\"timestamp\": 1665393722428, \"name\": \"a_hangup\", \"text\": \"Bên em có dịch vụ gì\"}, {\"timestamp\": 1665393781019, \"name\": \"b_speak\", \"text\": \"Vui lòng chờ trong giây lát. Cuộc gọi đang được nối máy đến tổng đài viên \"}]}}}",
+                            "valueFrom": {
+                                "path": "/opt/output-response.txt"
+                            }
+                        }
+                    ],
+                    "artifacts": [
+                        {
+                            "name": "context",
+                            "path": "/opt/output-response.txt",
+                            "s3": {
+                                "Key": "caro-template-hgdpf/caro-template-hgdpf-get-transcript-3490117790/context.tgz"
+                            }
+                        },
+                        {
+                            "name": "main-logs",
+                            "path": "",
+                            "s3": {
+                                "Key": "caro-template-hgdpf/caro-template-hgdpf-get-transcript-3490117790/main.log"
+                            }
+                        }
+                    ],
+                    "exitCode": "0"
+                },
+                "children": ["caro-template-hgdpf-1197814098"],
+                "outboundNodes": null,
+                "hostNodeName": "longvb-pc"
+            }
+        },
+        "storedTemplates": {
+            "namespaced/caro-template/book-caro": {
+                "name": "book-caro",
+                "inputs": {
+                    "parameters": [
+                        {
+                            "name": "call_unique_id",
+                            "value": "",
+                            "valueFrom": {
+                                "path": ""
+                            }
+                        },
+                        {
+                            "name": "id",
+                            "value": "",
+                            "valueFrom": {
+                                "path": ""
+                            }
+                        },
+                        {
+                            "name": "address",
+                            "value": "",
+                            "valueFrom": {
+                                "path": ""
+                            }
+                        },
+                        {
+                            "name": "lat",
+                            "value": "",
+                            "valueFrom": {
+                                "path": ""
+                            }
+                        },
+                        {
+                            "name": "long",
+                            "value": "",
+                            "valueFrom": {
+                                "path": ""
+                            }
+                        },
+                        {
+                            "name": "phoneNumber",
+                            "value": "",
+                            "valueFrom": {
+                                "path": ""
+                            }
+                        },
+                        {
+                            "name": "receivedPhoneNumber",
+                            "value": "",
+                            "valueFrom": {
+                                "path": ""
+                            }
+                        },
+                        {
+                            "name": "time",
+                            "value": "",
+                            "valueFrom": {
+                                "path": ""
+                            }
+                        },
+                        {
+                            "name": "numberCar",
+                            "value": "",
+                            "valueFrom": {
+                                "path": ""
+                            }
+                        },
+                        {
+                            "name": "carTypeId",
+                            "value": "",
+                            "valueFrom": {
+                                "path": ""
+                            }
+                        },
+                        {
+                            "name": "textFromSpeech",
+                            "value": "",
+                            "valueFrom": {
+                                "path": ""
+                            }
+                        },
+                        {
+                            "name": "outbound",
+                            "value": "",
+                            "valueFrom": {
+                                "path": ""
+                            }
+                        }
+                    ],
+                    "artifacts": [
+                        {
+                            "name": "context1",
+                            "path": "/opt/input_context1.txt",
+                            "s3": {
+                                "Key": ""
+                            }
+                        },
+                        {
+                            "name": "context2",
+                            "path": "/opt/input_context2.txt",
+                            "s3": {
+                                "Key": ""
+                            }
+                        }
+                    ]
+                },
+                "outputs": {
+                    "parameters": [
+                        {
+                            "name": "context",
+                            "value": "",
+                            "valueFrom": {
+                                "path": "/opt/output-response.txt"
+                            }
+                        }
+                    ],
+                    "artifacts": null,
+                    "exitCode": ""
+                },
+                "metadata": {},
+                "container": {
+                    "name": "",
+                    "image": "longvb/python-http:v9",
+                    "command": ["sh", "-c"],
+                    "args": [
+                        "python index.py --context_paths /opt/input_context1.txt /opt/input_context2.txt  --config '{\"url\":\"http://178.128.18.215:8081/api/bot/booking\",\"method\":\"POST\",\"headers\":{\"token\":\"cuknq3m98DbKf4BlfurI6gTJmnGd4HMtjDwUI0k2x6w\",\"Content-Type\":\"application/json\"},\"body\":{\"id\":\"{{inputs.parameters.id}}\",\"eventType\":2,\"line\":\"3\",\"phoneNumber\":\"{{inputs.parameters.phoneNumber}}\",\"time\":{{inputs.parameters.time}},\"receivedPhoneNumber\":\"{{inputs.parameters.receivedPhoneNumber}}\",\"sbType\":2,\"audioFilePath\":\"https://dev.vinbase.ai/api/v1/callbot-history/records?channel_vars.unique_id={{inputs.parameters.call_unique_id}}\",\"extendsInfo\":{\"address\":\"{{inputs.parameters.address}}\",\"longitudeAddress\":{{inputs.parameters.long}},\"latitudeAddress\":{{inputs.parameters.lat}},\"arrived\":\"19,NGUYỄNTRÃI-CHUNGCƯVNT\",\"longitudeArrived\":105.8204,\"latitudeArrived\":21.0021,\"numberCar\":{{inputs.parameters.numberCar}},\"carTypeId\":{{inputs.parameters.carTypeId}}},\"outbound\":{{inputs.parameters.outbound}},\"textFromSpeech\":\"$from_context:get-transcript.body\"},\"output_field\":\"caro\"}'"
+                    ]
+                }
+            },
+            "namespaced/caro-template/booking": {
+                "name": "booking",
+                "inputs": {
+                    "parameters": [
+                        {
+                            "name": "call_unique_id",
+                            "value": "",
+                            "valueFrom": {
+                                "path": ""
+                            }
+                        },
+                        {
+                            "name": "deployment_id",
+                            "value": "",
+                            "valueFrom": {
+                                "path": ""
+                            }
+                        },
+                        {
+                            "name": "api_key",
+                            "value": "",
+                            "valueFrom": {
+                                "path": ""
+                            }
+                        },
+                        {
+                            "name": "time",
+                            "value": "",
+                            "valueFrom": {
+                                "path": ""
+                            }
+                        },
+                        {
+                            "name": "receivedPhoneNumber",
+                            "value": "",
+                            "valueFrom": {
+                                "path": ""
+                            }
+                        },
+                        {
+                            "name": "phoneNumber",
+                            "value": "",
+                            "valueFrom": {
+                                "path": ""
+                            }
+                        },
+                        {
+                            "name": "address",
+                            "value": "",
+                            "valueFrom": {
+                                "path": ""
+                            }
+                        },
+                        {
+                            "name": "numberCar",
+                            "value": "",
+                            "valueFrom": {
+                                "path": ""
+                            }
+                        },
+                        {
+                            "name": "carTypeId",
+                            "value": "",
+                            "valueFrom": {
+                                "path": ""
+                            }
+                        },
+                        {
+                            "name": "outbound",
+                            "value": "",
+                            "valueFrom": {
+                                "path": ""
+                            }
+                        }
+                    ],
+                    "artifacts": null
+                },
+                "outputs": {
+                    "parameters": null,
+                    "artifacts": null,
+                    "exitCode": ""
+                },
+                "metadata": {},
+                "container": {
+                    "name": "",
+                    "image": "",
+                    "command": null,
+                    "args": null
+                }
+            },
+            "namespaced/caro-template/get-lat-long": {
+                "name": "get-lat-long",
+                "inputs": {
+                    "parameters": [
+                        {
+                            "name": "address",
+                            "value": "",
+                            "valueFrom": {
+                                "path": ""
+                            }
+                        }
+                    ],
+                    "artifacts": [
+                        {
+                            "name": "context",
+                            "path": "/opt/input_context.txt",
+                            "s3": {
+                                "Key": ""
+                            }
+                        }
+                    ]
+                },
+                "outputs": {
+                    "parameters": [
+                        {
+                            "name": "context",
+                            "value": "",
+                            "valueFrom": {
+                                "path": "/opt/output-response.txt"
+                            }
+                        }
+                    ],
+                    "artifacts": [
+                        {
+                            "name": "context",
+                            "path": "/opt/output-response.txt",
+                            "s3": {
+                                "Key": ""
+                            }
+                        }
+                    ],
+                    "exitCode": ""
+                },
+                "metadata": {},
+                "container": {
+                    "name": "",
+                    "image": "longvb/python-http:v9",
+                    "command": ["sh", "-c"],
+                    "args": [
+                        "python index.py --context_paths /opt/input_context.txt  --config '{\"url\":\"https://maps.googleapis.com/maps/api/geocode/json?address={{inputs.parameters.address}}&key=AIzaSyC5ySOATlvcE2MmptDiXGj_F3fySi2rkwU\",\"method\":\"GET\",\"headers\":{\"Content-Type\":\"application/json\"},\"output_field\":\"get-lat-long\"}'"
+                    ]
+                }
+            },
+            "namespaced/caro-template/get-transcript": {
+                "name": "get-transcript",
+                "inputs": {
+                    "parameters": [
+                        {
+                            "name": "call_unique_id",
+                            "value": "",
+                            "valueFrom": {
+                                "path": ""
+                            }
+                        },
+                        {
+                            "name": "deployment_id",
+                            "value": "",
+                            "valueFrom": {
+                                "path": ""
+                            }
+                        },
+                        {
+                            "name": "api_key",
+                            "value": "",
+                            "valueFrom": {
+                                "path": ""
+                            }
+                        }
+                    ],
+                    "artifacts": [
+                        {
+                            "name": "context",
+                            "path": "/opt/input_context.txt",
+                            "s3": {
+                                "Key": ""
+                            }
+                        }
+                    ]
+                },
+                "outputs": {
+                    "parameters": [
+                        {
+                            "name": "context",
+                            "value": "",
+                            "valueFrom": {
+                                "path": "/opt/output-response.txt"
+                            }
+                        }
+                    ],
+                    "artifacts": [
+                        {
+                            "name": "context",
+                            "path": "/opt/output-response.txt",
+                            "s3": {
+                                "Key": ""
+                            }
+                        }
+                    ],
+                    "exitCode": ""
+                },
+                "metadata": {},
+                "container": {
+                    "name": "",
+                    "image": "longvb/python-http:v9",
+                    "command": ["sh", "-c"],
+                    "args": [
+                        "python index.py --context_paths /opt/input_context.txt  --config '{\"url\":\"https://dev.vinbase.ai/api/v1/callbot-history/livecall/transcript?call_unique_id={{inputs.parameters.call_unique_id}}&deployment_id={{inputs.parameters.deployment_id}}\",\"method\":\"GET\",\"headers\":{\"X-API-KEY\":\"{{inputs.parameters.api_key}}\",\"Content-Type\":\"application/json\"},\"output_field\":\"get-transcript\"}'"
+                    ]
+                }
+            },
+            "namespaced/caro-template/prepare-artifact": {
+                "name": "prepare-artifact",
+                "inputs": {
+                    "parameters": null,
+                    "artifacts": null
+                },
+                "outputs": {
+                    "parameters": null,
+                    "artifacts": [
+                        {
+                            "name": "context",
+                            "path": "/tmp/output-response.txt",
+                            "s3": {
+                                "Key": ""
+                            }
+                        }
+                    ],
+                    "exitCode": ""
+                },
+                "metadata": {},
+                "container": {
+                    "name": "",
+                    "image": "alpine:3.6",
+                    "command": ["sh", "-c"],
+                    "args": ["echo \"{}\" > /tmp/output-response.txt"]
+                }
+            }
+        },
+        "conditions": [
+            {
+                "type": "PodRunning",
+                "status": "False"
+            },
+            {
+                "type": "Completed",
+                "status": "True"
+            }
+        ],
+        "resourcesDuration": {
+            "cpu": 12,
+            "int": 0
+        },
+        "storedWorkflowTemplateSpec": {
+            "entrypoint": "booking",
+            "arguments": {
+                "Parameters": [
+                    {
+                        "name": "call_unique_id",
+                        "value": "7a2afc74-51c0-4fdb-8646-11d346a69e9a",
+                        "valueFrom": {
+                            "path": ""
+                        }
+                    },
+                    {
+                        "name": "deployment_id",
+                        "value": "de009ef1-a8ed-44b2-9b14-26f0162771fa",
+                        "valueFrom": {
+                            "path": ""
+                        }
+                    },
+                    {
+                        "name": "api_key",
+                        "value": "U0lQLjE2NjEyMjU0MDUxNjQueFJzQU5nOWROUXFUWm1OQzAwT2pVOWt6bXF2Uk5BUUhrQ2xXT3I5bUVsWlQyX1ctQXBVRGZ2WGRkTUxuWUE=",
+                        "valueFrom": {
+                            "path": ""
+                        }
+                    },
+                    {
+                        "name": "time",
+                        "value": "1663644766000",
+                        "valueFrom": {
+                            "path": ""
+                        }
+                    },
+                    {
+                        "name": "phoneNumber",
+                        "value": "0839400201",
+                        "valueFrom": {
+                            "path": ""
+                        }
+                    },
+                    {
+                        "name": "receivedPhoneNumber",
+                        "value": "02432323232",
+                        "valueFrom": {
+                            "path": ""
+                        }
+                    },
+                    {
+                        "name": "address",
+                        "value": "royal+city",
+                        "valueFrom": {
+                            "path": ""
+                        }
+                    },
+                    {
+                        "name": "numberCar",
+                        "value": "1",
+                        "valueFrom": {
+                            "path": ""
+                        }
+                    },
+                    {
+                        "name": "carTypeId",
+                        "value": "1",
+                        "valueFrom": {
+                            "path": ""
+                        }
+                    },
+                    {
+                        "name": "outbound",
+                        "value": "1",
+                        "valueFrom": {
+                            "path": ""
+                        }
+                    }
+                ]
+            },
+            "workflowTemplateRef": {
+                "name": "caro-template"
+            }
+        },
+        "artifactRepositoryRef": {
+            "configMap": "artifact-repositories",
+            "key": "default-v1",
+            "namespace": "argo",
+            "artifactRepository": {
+                "archiveLogs": true,
+                "s3": {
+                    "bucket": "my-bucket",
+                    "insecure": true,
+                    "accessKeySecret": {
+                        "name": "my-minio-cred",
+                        "key": "accesskey"
+                    },
+                    "secretKeySecret": {
+                        "name": "my-minio-cred",
+                        "key": "secretkey"
+                    }
+                }
+            }
+        }
+    }
+}

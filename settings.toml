@@ -1,0 +1,16 @@
+argo_uri = "https://10.124.69.230:32153"
+es_uri = "http://10.254.148.85:9200"
+call_log_alias = "call_log"
+call_stats_alias = "call_stats"
+passport_uri = "https://dev.vinbase.ai/api/v1/pp"
+vintalk_services = "https://dev.vinbase.ai/api/v1/vb-integrations"
+# root_path = "/api/v1/callbot-history"
+
+call_memory_alias = "call_memory"
+root_path = "/api/v1/callbot-history"
+root_tokens = '["hFCftYU_6jcUeIFsA2OvxKGXMF7E4nFt9K697YrnUZw"]'
+s3_bucket = "bdi-dev-callbot"
+default_region = "ap-southeast-1"
+# region = "ap-southeast-1"
+# role_arn = "arn:aws:iam::717054839986:role/BDI-Dev-Role-InstanceAccess"
+# web_identity_token_file = "/var/run/secrets/eks.amazonaws.com/serviceaccount/token"
