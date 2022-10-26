@@ -19,7 +19,7 @@ type Artifact struct {
 }
 
 type Arguments struct {
-	Parameters []Parameter
+	Parameters []Parameter `json:"parameters,omitempty"`
 }
 
 type WorkflowTemplateRef struct {
@@ -38,6 +38,12 @@ type Spec struct {
 	Entrypoint          string              `json:"entrypoint"`
 	Arguments           Arguments           `json:"arguments"`
 	WorkflowTemplateRef WorkflowTemplateRef `json:"workflowTemplateRef"`
+}
+
+type WorkflowTemplateSpec struct {
+	Entrypoint string     `json:"entrypoint,omitempty"`
+	Arguments  Arguments  `json:"arguments,omitempty"`
+	Templates  []Template `json:"templates,omitempty"`
 }
 
 type Inputs struct {
@@ -153,4 +159,14 @@ type WorkflowEvent struct {
 		Type   string   `json:"type,omitempty"`
 		Object Workflow `json:"object,omitempty"`
 	} `json:"result,omitempty"`
+}
+
+type WorkflowTemplate struct {
+	MetaData MetaData             `json:"metadata"`
+	Spec     WorkflowTemplateSpec `json:"spec"`
+}
+
+type WorkflowTemplates struct {
+	MetaData MetaData           `json:"metadata,omitempty"`
+	Items    []WorkflowTemplate `json:"items,omitempty"`
 }

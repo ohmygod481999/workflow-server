@@ -62,6 +62,27 @@ func (argoAdapter *ArgoAdapter) GetWorkflows() *Workflows {
 	return &wf
 }
 
+func (argoAdapter *ArgoAdapter) GetWorkflowTemplates() *WorkflowTemplates {
+	url := fmt.Sprintf("%s/api/v1/workflow-templates/argo", argoAdapter.uri)
+
+	res, err := argoAdapter.client.R().Get(url)
+
+	if err != nil {
+		fmt.Printf("client: error making http request: %s\n", err)
+		return nil
+	}
+
+	var wfTemplates WorkflowTemplates
+	err = json.Unmarshal(res.Body(), &wfTemplates)
+
+	if err != nil {
+		fmt.Println(err)
+	}
+
+	return &wfTemplates
+
+}
+
 func (argoAdapter *ArgoAdapter) SubmitWorkflowTemplate(body WorkflowTemplateSubmitBody) (*Workflow, error) {
 	url := fmt.Sprintf("%s/api/v1/workflows/argo/submit", argoAdapter.uri)
 	res, err := argoAdapter.client.R().SetBody(body).Post(url)

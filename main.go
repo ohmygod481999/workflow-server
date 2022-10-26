@@ -44,6 +44,11 @@ func main() {
 		return c.JSON(workflows)
 	})
 
+	app.Get("/wf-templates", func(c *fiber.Ctx) error {
+		workflowTemplates := argoAdapter.GetWorkflowTemplates()
+		return c.JSON(workflowTemplates)
+	})
+
 	app.Post("/", func(c *fiber.Ctx) error {
 		body := c.Request().Body()
 		var reqBody argo_adapter.WorkflowTemplateSubmitBody
