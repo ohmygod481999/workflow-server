@@ -70,14 +70,14 @@ func main() {
 		argoWfEvent := <-message
 
 		argoWf := argoWfEvent.Result.Object
-		wf := workflow.NewWorkflow()
+		wf := workflow.NewBlueprint()
 		wf.ReadFromArgoWorkflow(argoWf)
 		fmt.Println(wf)
 
 		return c.JSON(wf)
 	})
 
-	// testWorkflowModel()
+	testWorkflowModel()
 	app.Listen(":3000")
 
 }
@@ -92,12 +92,12 @@ func testWorkflowModel() {
 	err = json.Unmarshal(json_bytes, &wfSample)
 
 	// Create workflow from argo workflow
-	wf := workflow.NewWorkflow()
-	wf.ReadFromArgoWorkflow(wfSample)
-	fmt.Println(wf)
+	blueprint := workflow.NewBlueprint()
+	blueprint.ReadFromArgoWorkflow(wfSample)
+	fmt.Println(blueprint)
 
 	// Print out a sample node
-	nodes := wf.GetNodes()
+	nodes := blueprint.GetNodes()
 	sampleNode := nodes[0]
 	fmt.Println(sampleNode)
 }
