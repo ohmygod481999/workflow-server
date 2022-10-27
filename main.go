@@ -3,7 +3,7 @@ package main
 import (
 	argo_adapter "callbot/workflow/argo-adapter"
 	"callbot/workflow/auth"
-	"callbot/workflow/workflow"
+	workflow_2 "callbot/workflow/workflow-2"
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
@@ -46,7 +46,12 @@ func main() {
 
 	app.Get("/wf-templates", func(c *fiber.Ctx) error {
 		workflowTemplates := argoAdapter.GetWorkflowTemplates()
-		return c.JSON(workflowTemplates)
+		var templateGroups []workflow_2.TemplateGroup
+		for _, argoTemplate := range workflowTemplates.Items {
+			templateGroups = append(templateGroups, *workflow_2.LoadTemplateGroupFromArgo(&argoTemplate))
+		}
+		return c.JSON(templateGroups)
+		// return c.JSON(workflowTemplates)
 	})
 
 	app.Post("/", func(c *fiber.Ctx) error {
@@ -63,41 +68,101 @@ func main() {
 		return c.JSON(workflow)
 	})
 
-	app.Get("/workflow-events", func(c *fiber.Ctx) error {
-		var message = make(chan argo_adapter.WorkflowEvent)
-		go argoAdapter.ListenWorkflowEvent("caro-template-j25dz", "argo", message)
+	// app.Get("/workflow-events", func(c *fiber.Ctx) error {
+	// 	var message = make(chan argo_adapter.WorkflowEvent)
+	// 	go argoAdapter.ListenWorkflowEvent("caro-template-j25dz", "argo", message)
 
-		argoWfEvent := <-message
+	// 	argoWfEvent := <-message
 
-		argoWf := argoWfEvent.Result.Object
-		wf := workflow.NewBlueprint()
-		wf.ReadFromArgoWorkflow(argoWf)
-		fmt.Println(wf)
+	// 	argoWf := argoWfEvent.Result.Object
+	// 	blueprint := workflow.NewArgoBlueprint()
+	// 	blueprint.Load(argoWf)
+	// 	fmt.Println(blueprint)
 
-		return c.JSON(wf)
-	})
+	// 	return c.JSON(blueprint)
+	// })
 
-	testWorkflowModel()
+	testTemplateModel()
+	// testWorkflowModel()
 	app.Listen(":3000")
 
 }
 
-func testWorkflowModel() {
-	// Read Worflow data from json file
-	json_bytes, err := ioutil.ReadFile("workflow.json")
+func testTemplateModel() {
+	// Read Worflow template data from json file
+	json_bytes, err := ioutil.ReadFile("workflow-template.json")
 	if err != nil {
 		fmt.Println(err)
 	}
-	var wfSample argo_adapter.Workflow
-	err = json.Unmarshal(json_bytes, &wfSample)
 
-	// Create workflow from argo workflow
-	blueprint := workflow.NewBlueprint()
-	blueprint.ReadFromArgoWorkflow(wfSample)
+	var argoWfTemplate argo_adapter.WorkflowTemplate
+	err = json.Unmarshal(json_bytes, &argoWfTemplate)
+	if err != nil {
+		fmt.Println(err)
+	}
+
+	templateGroup := workflow_2.LoadTemplateGroupFromArgo(&argoWfTemplate)
+
+	str, _ := json.MarshalIndent(templateGroup, "", "\t")
+	fmt.Println(string(str))
+
+	// I had templates, which is used for making a blueprint
+
+	blueprint := workflow_2.NewArgoBlueprint()
+
+	blueprint.AddNode(templateGroup.Templates[0].Id, &templateGroup.Templates[0])
+	blueprint.AddNode(templateGroup.Templates[1].Id, &templateGroup.Templates[1])
+	blueprint.AddEdge(templateGroup.Templates[0].Id, templateGroup.Templates[1].Id)
+
 	fmt.Println(blueprint)
 
-	// Print out a sample node
-	nodes := blueprint.GetNodes()
-	sampleNode := nodes[0]
+	// Read Worflow data from json file
+	json_bytes, err = ioutil.ReadFile("workflow.json")
+	if err != nil {
+		fmt.Println(err)
+	}
+
+	var argoWf argo_adapter.Workflow
+	err = json.Unmarshal(json_bytes, &argoWf)
+	if err != nil {
+		fmt.Println(err)
+	}
+
+	loadedBlueprint := workflow_2.LoadBlueprint(argoWf)
+
+	fmt.Println("loadedBlueprint", loadedBlueprint)
+	sampleNode := loadedBlueprint.GetNodes()[0]
 	fmt.Println(sampleNode)
+	fmt.Println(loadedBlueprint.GetNodes()[1])
+
+	// Sample blueprint ???
+
+	// Blueprints use for create a workflow, We persis the blueprint
 }
+
+// func testWorkflowModel() {
+// 	// Read Worflow data from json file
+// 	json_bytes, err := ioutil.ReadFile("workflow.json")
+// 	if err != nil {
+// 		fmt.Println(err)
+// 	}
+
+// 	var argoWfSample argo_adapter.Workflow
+// 	err = json.Unmarshal(json_bytes, &argoWfSample)
+// 	if err != nil {
+// 		fmt.Println(err)
+// 	}
+
+// 	// Create workflow from argo workflow
+// 	workflow := workflow_2.LoadWorkflow(argoWfSample)
+
+// 	fmt.Println(workflow.ArgoBlueprint.String())
+
+// 	// Print out a sample node
+// 	nodes := workflow.ArgoBlueprint.GetNodes()
+// 	sampleNode := nodes[0]
+// 	fmt.Println(sampleNode)
+
+// 	// wf := workflow.Submit()
+// 	workflow.Watch()
+// }

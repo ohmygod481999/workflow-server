@@ -1,0 +1,395 @@
+{
+    "metadata": {
+        "name": "caro-template",
+        "namespace": "argo",
+        "selfLink": "/apis/argoproj.io/v1alpha1/namespaces/argo/workflowtemplates/caro-template",
+        "uid": "246795e0-4066-4acf-9dc0-e08b75bbdf76",
+        "resourceVersion": "3306663",
+        "generation": 1,
+        "creationTimestamp": "2022-10-14T04:08:55Z",
+        "labels": {
+            "workflows.argoproj.io/creator": "system-serviceaccount-argo-argo-server"
+        },
+        "managedFields": [
+            {
+                "manager": "argo",
+                "operation": "Update",
+                "apiVersion": "argoproj.io/v1alpha1",
+                "time": "2022-10-14T04:08:55Z",
+                "fieldsType": "FieldsV1",
+                "fieldsV1": {
+                    "f:metadata": {
+                        "f:labels": {
+                            ".": {},
+                            "f:workflows.argoproj.io/creator": {}
+                        }
+                    },
+                    "f:spec": {}
+                }
+            }
+        ]
+    },
+    "spec": {
+        "templates": [
+            {
+                "name": "booking",
+                "inputs": {
+                    "parameters": [
+                        {
+                            "name": "call_unique_id"
+                        },
+                        {
+                            "name": "deployment_id"
+                        },
+                        {
+                            "name": "api_key"
+                        },
+                        {
+                            "name": "time"
+                        },
+                        {
+                            "name": "receivedPhoneNumber"
+                        },
+                        {
+                            "name": "phoneNumber"
+                        },
+                        {
+                            "name": "address"
+                        },
+                        {
+                            "name": "numberCar"
+                        },
+                        {
+                            "name": "carTypeId"
+                        },
+                        {
+                            "name": "outbound"
+                        }
+                    ]
+                },
+                "outputs": {},
+                "metadata": {},
+                "dag": {
+                    "tasks": [
+                        {
+                            "name": "prepare-artifact",
+                            "template": "prepare-artifact",
+                            "arguments": {}
+                        },
+                        {
+                            "name": "get-lat-long",
+                            "template": "get-lat-long",
+                            "arguments": {
+                                "parameters": [
+                                    {
+                                        "name": "address",
+                                        "value": "{{inputs.parameters.address}}"
+                                    }
+                                ],
+                                "artifacts": [
+                                    {
+                                        "name": "context",
+                                        "from": "{{tasks.prepare-artifact.outputs.artifacts.context}}"
+                                    }
+                                ]
+                            },
+                            "depends": "prepare-artifact"
+                        },
+                        {
+                            "name": "get-transcript",
+                            "template": "get-transcript",
+                            "arguments": {
+                                "parameters": [
+                                    {
+                                        "name": "call_unique_id",
+                                        "value": "{{inputs.parameters.call_unique_id}}"
+                                    },
+                                    {
+                                        "name": "deployment_id",
+                                        "value": "{{inputs.parameters.deployment_id}}"
+                                    },
+                                    {
+                                        "name": "api_key",
+                                        "value": "{{inputs.parameters.api_key}}"
+                                    }
+                                ],
+                                "artifacts": [
+                                    {
+                                        "name": "context",
+                                        "from": "{{tasks.prepare-artifact.outputs.artifacts.context}}"
+                                    }
+                                ]
+                            },
+                            "depends": "prepare-artifact"
+                        },
+                        {
+                            "name": "book-caro",
+                            "template": "book-caro",
+                            "arguments": {
+                                "parameters": [
+                                    {
+                                        "name": "call_unique_id",
+                                        "value": "{{inputs.parameters.call_unique_id}}"
+                                    },
+                                    {
+                                        "name": "id",
+                                        "value": "6290753b-d924-3025-968c-ca76d830e85a"
+                                    },
+                                    {
+                                        "name": "address",
+                                        "value": "{{=jsonpath(tasks['get-lat-long'].outputs.parameters.context, '$.get-lat-long.body.results[0].formatted_address')}}"
+                                    },
+                                    {
+                                        "name": "lat",
+                                        "value": "{{=jsonpath(tasks['get-lat-long'].outputs.parameters.context, '$.get-lat-long.body.results[0].geometry.location.lat')}}"
+                                    },
+                                    {
+                                        "name": "long",
+                                        "value": "{{=jsonpath(tasks['get-lat-long'].outputs.parameters.context, '$.get-lat-long.body.results[0].geometry.location.lng')}}"
+                                    },
+                                    {
+                                        "name": "phoneNumber",
+                                        "value": "{{inputs.parameters.phoneNumber}}"
+                                    },
+                                    {
+                                        "name": "receivedPhoneNumber",
+                                        "value": "{{inputs.parameters.receivedPhoneNumber}}"
+                                    },
+                                    {
+                                        "name": "time",
+                                        "value": "{{inputs.parameters.time}}"
+                                    },
+                                    {
+                                        "name": "numberCar",
+                                        "value": "{{inputs.parameters.numberCar}}"
+                                    },
+                                    {
+                                        "name": "carTypeId",
+                                        "value": "{{inputs.parameters.carTypeId}}"
+                                    },
+                                    {
+                                        "name": "textFromSpeech",
+                                        "value": "{{=jsonpath(tasks['get-transcript'].outputs.parameters.context, '$.get-transcript.body')}}"
+                                    },
+                                    {
+                                        "name": "outbound",
+                                        "value": "{{inputs.parameters.outbound}}"
+                                    }
+                                ],
+                                "artifacts": [
+                                    {
+                                        "name": "context1",
+                                        "from": "{{tasks.get-lat-long.outputs.artifacts.context}}"
+                                    },
+                                    {
+                                        "name": "context2",
+                                        "from": "{{tasks.get-transcript.outputs.artifacts.context}}"
+                                    }
+                                ]
+                            },
+                            "depends": "get-lat-long && get-transcript"
+                        }
+                    ]
+                }
+            },
+            {
+                "name": "prepare-artifact",
+                "inputs": {},
+                "outputs": {
+                    "artifacts": [
+                        {
+                            "name": "context",
+                            "path": "/tmp/output-response.txt"
+                        }
+                    ]
+                },
+                "metadata": {},
+                "container": {
+                    "name": "",
+                    "image": "alpine:3.6",
+                    "command": [
+                        "sh",
+                        "-c"
+                    ],
+                    "args": [
+                        "echo \"{}\" > /tmp/output-response.txt"
+                    ],
+                    "resources": {}
+                }
+            },
+            {
+                "name": "get-lat-long",
+                "inputs": {
+                    "parameters": [
+                        {
+                            "name": "address"
+                        }
+                    ],
+                    "artifacts": [
+                        {
+                            "name": "context",
+                            "path": "/opt/input_context.txt"
+                        }
+                    ]
+                },
+                "outputs": {
+                    "parameters": [
+                        {
+                            "name": "context",
+                            "valueFrom": {
+                                "path": "/opt/output-response.txt"
+                            }
+                        }
+                    ],
+                    "artifacts": [
+                        {
+                            "name": "context",
+                            "path": "/opt/output-response.txt"
+                        }
+                    ]
+                },
+                "metadata": {},
+                "container": {
+                    "name": "",
+                    "image": "longvb/python-http:v9",
+                    "command": [
+                        "sh",
+                        "-c"
+                    ],
+                    "args": [
+                        "python index.py --context_paths /opt/input_context.txt  --config '{\"url\":\"https://maps.googleapis.com/maps/api/geocode/json?address={{inputs.parameters.address}}&key=AIzaSyC5ySOATlvcE2MmptDiXGj_F3fySi2rkwU\",\"method\":\"GET\",\"headers\":{\"Content-Type\":\"application/json\"},\"output_field\":\"get-lat-long\"}'"
+                    ],
+                    "resources": {}
+                }
+            },
+            {
+                "name": "get-transcript",
+                "inputs": {
+                    "parameters": [
+                        {
+                            "name": "call_unique_id"
+                        },
+                        {
+                            "name": "deployment_id"
+                        },
+                        {
+                            "name": "api_key"
+                        }
+                    ],
+                    "artifacts": [
+                        {
+                            "name": "context",
+                            "path": "/opt/input_context.txt"
+                        }
+                    ]
+                },
+                "outputs": {
+                    "parameters": [
+                        {
+                            "name": "context",
+                            "valueFrom": {
+                                "path": "/opt/output-response.txt"
+                            }
+                        }
+                    ],
+                    "artifacts": [
+                        {
+                            "name": "context",
+                            "path": "/opt/output-response.txt"
+                        }
+                    ]
+                },
+                "metadata": {},
+                "container": {
+                    "name": "",
+                    "image": "longvb/python-http:v9",
+                    "command": [
+                        "sh",
+                        "-c"
+                    ],
+                    "args": [
+                        "python index.py --context_paths /opt/input_context.txt  --config '{\"url\":\"https://dev.vinbase.ai/api/v1/callbot-history/livecall/transcript?call_unique_id={{inputs.parameters.call_unique_id}}&deployment_id={{inputs.parameters.deployment_id}}\",\"method\":\"GET\",\"headers\":{\"X-API-KEY\":\"{{inputs.parameters.api_key}}\",\"Content-Type\":\"application/json\"},\"output_field\":\"get-transcript\"}'"
+                    ],
+                    "resources": {}
+                }
+            },
+            {
+                "name": "book-caro",
+                "inputs": {
+                    "parameters": [
+                        {
+                            "name": "call_unique_id"
+                        },
+                        {
+                            "name": "id"
+                        },
+                        {
+                            "name": "address"
+                        },
+                        {
+                            "name": "lat"
+                        },
+                        {
+                            "name": "long"
+                        },
+                        {
+                            "name": "phoneNumber"
+                        },
+                        {
+                            "name": "receivedPhoneNumber"
+                        },
+                        {
+                            "name": "time"
+                        },
+                        {
+                            "name": "numberCar"
+                        },
+                        {
+                            "name": "carTypeId"
+                        },
+                        {
+                            "name": "textFromSpeech"
+                        },
+                        {
+                            "name": "outbound"
+                        }
+                    ],
+                    "artifacts": [
+                        {
+                            "name": "context1",
+                            "path": "/opt/input_context1.txt"
+                        },
+                        {
+                            "name": "context2",
+                            "path": "/opt/input_context2.txt"
+                        }
+                    ]
+                },
+                "outputs": {
+                    "parameters": [
+                        {
+                            "name": "context",
+                            "valueFrom": {
+                                "path": "/opt/output-response.txt"
+                            }
+                        }
+                    ]
+                },
+                "metadata": {},
+                "container": {
+                    "name": "",
+                    "image": "longvb/python-http:v9",
+                    "command": [
+                        "sh",
+                        "-c"
+                    ],
+                    "args": [
+                        "python index.py --context_paths /opt/input_context1.txt /opt/input_context2.txt  --config '{\"url\":\"http://178.128.18.215:8081/api/bot/booking\",\"method\":\"POST\",\"headers\":{\"token\":\"cuknq3m98DbKf4BlfurI6gTJmnGd4HMtjDwUI0k2x6w\",\"Content-Type\":\"application/json\"},\"body\":{\"id\":\"{{inputs.parameters.id}}\",\"eventType\":2,\"line\":\"3\",\"phoneNumber\":\"{{inputs.parameters.phoneNumber}}\",\"time\":{{inputs.parameters.time}},\"receivedPhoneNumber\":\"{{inputs.parameters.receivedPhoneNumber}}\",\"sbType\":2,\"audioFilePath\":\"https://dev.vinbase.ai/api/v1/callbot-history/records?channel_vars.unique_id={{inputs.parameters.call_unique_id}}\",\"extendsInfo\":{\"address\":\"{{inputs.parameters.address}}\",\"longitudeAddress\":{{inputs.parameters.long}},\"latitudeAddress\":{{inputs.parameters.lat}},\"arrived\":\"19,NGUYỄNTRÃI-CHUNGCƯVNT\",\"longitudeArrived\":105.8204,\"latitudeArrived\":21.0021,\"numberCar\":{{inputs.parameters.numberCar}},\"carTypeId\":{{inputs.parameters.carTypeId}}},\"outbound\":{{inputs.parameters.outbound}},\"textFromSpeech\":\"$from_context:get-transcript.body\"},\"output_field\":\"caro\"}'"
+                    ],
+                    "resources": {}
+                }
+            }
+        ],
+        "arguments": {}
+    }
+}

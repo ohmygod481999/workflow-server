@@ -23,7 +23,19 @@ type Arguments struct {
 }
 
 type WorkflowTemplateRef struct {
-	Name string `json:"name"`
+	Name     string `json:"name,omitempty"`
+	Template string `json:"template,omitempty"`
+}
+
+type Task struct {
+	Name        string              `json:"name,omitempty"`
+	Arguments   Arguments           `json:"arguments,omitempty"`
+	TemplateRef WorkflowTemplateRef `json:"templateRef,omitempty"`
+	Depends     string              `json:"depends,omitempty"`
+}
+
+type Dag struct {
+	Tasks []Task `json:"tasks,omitempty"`
 }
 
 type Template struct {
@@ -32,12 +44,14 @@ type Template struct {
 	Outputs   Outputs   `json:"outputs,omitempty"`
 	MetaData  MetaData  `json:"metaData,omitempty"`
 	Container Container `json:"container,omitempty"`
+	Dag       Dag       `json:"dag,omitempty"`
 }
 
 type Spec struct {
-	Entrypoint          string              `json:"entrypoint"`
-	Arguments           Arguments           `json:"arguments"`
-	WorkflowTemplateRef WorkflowTemplateRef `json:"workflowTemplateRef"`
+	Entrypoint          string              `json:"entrypoint,omitempty"`
+	Arguments           Arguments           `json:"arguments,omitempty"`
+	Templates           []Template          `json:"templates,omitempty"`
+	WorkflowTemplateRef WorkflowTemplateRef `json:"workflowTemplateRef,omitempty"`
 }
 
 type WorkflowTemplateSpec struct {

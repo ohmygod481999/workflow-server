@@ -2,14 +2,20 @@ package workflow
 
 import "fmt"
 
-type SubmitableWorkflow interface {
-	Submit()
+type IWorkflow interface {
+	Watch()
 }
 
-type Workflow struct {
-	Blueprint *Blueprint
+type ArgoWorkflow struct {
+	Blueprint *ArgoBlueprint
 }
 
-func (workflow *Workflow) Submit() {
-	fmt.Println("Submit workflow")
+func NewArgoWorkflow(blueprint *ArgoBlueprint) *ArgoWorkflow {
+	return &ArgoWorkflow{
+		Blueprint: blueprint,
+	}
+}
+
+func (workflow *ArgoWorkflow) Watch() {
+	fmt.Println("Watch workflow")
 }
