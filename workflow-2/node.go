@@ -26,8 +26,6 @@ type Node struct {
 }
 
 func (node *Node) String() string {
-	// result := fmt.Sprintf("{\n\tId: %s;\n\tStatus: %s\n\n\tInputs:}\n", node.Id, node.Status)
-
 	result := "{"
 	result += fmt.Sprintf("\n\tId: %s,", node.Id)
 	result += fmt.Sprintf("\n\tStatus: %s,", node.Status)

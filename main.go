@@ -7,12 +7,15 @@ import (
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
+	"math/rand"
+	"time"
 
 	"github.com/gofiber/fiber/v2"
 	"github.com/spf13/viper"
 )
 
 func main() {
+	rand.Seed(time.Now().UnixNano())
 	app := fiber.New()
 
 	viper.SetConfigName("settings")
@@ -44,14 +47,13 @@ func main() {
 		return c.JSON(workflows)
 	})
 
-	app.Get("/wf-templates", func(c *fiber.Ctx) error {
+	app.Get("/template-groups", func(c *fiber.Ctx) error {
 		workflowTemplates := argoAdapter.GetWorkflowTemplates()
 		var templateGroups []workflow_2.TemplateGroup
 		for _, argoTemplate := range workflowTemplates.Items {
 			templateGroups = append(templateGroups, *workflow_2.LoadTemplateGroupFromArgo(&argoTemplate))
 		}
 		return c.JSON(templateGroups)
-		// return c.JSON(workflowTemplates)
 	})
 
 	app.Post("/", func(c *fiber.Ctx) error {
@@ -90,6 +92,7 @@ func main() {
 
 func testTemplateModel() {
 	// Read Worflow template data from json file
+	// json_bytes, err := ioutil.ReadFile("saved-blueprint.json")
 	json_bytes, err := ioutil.ReadFile("workflow-template.json")
 	if err != nil {
 		fmt.Println(err)
@@ -101,13 +104,14 @@ func testTemplateModel() {
 		fmt.Println(err)
 	}
 
+	// Create template group from argo template
 	templateGroup := workflow_2.LoadTemplateGroupFromArgo(&argoWfTemplate)
 
+	// Just print (template group)
 	str, _ := json.MarshalIndent(templateGroup, "", "\t")
 	fmt.Println(string(str))
 
-	// I had templates, which is used for making a blueprint
-
+	// Make a custom blueprint and add node, edge to them
 	blueprint := workflow_2.NewArgoBlueprint()
 
 	blueprint.AddNode(templateGroup.Templates[0].Id, &templateGroup.Templates[0])
@@ -117,7 +121,7 @@ func testTemplateModel() {
 	fmt.Println(blueprint)
 
 	// Read Worflow data from json file
-	json_bytes, err = ioutil.ReadFile("workflow.json")
+	json_bytes, err = ioutil.ReadFile("saved-blueprint.json")
 	if err != nil {
 		fmt.Println(err)
 	}
@@ -128,16 +132,32 @@ func testTemplateModel() {
 		fmt.Println(err)
 	}
 
+	// Create Blueprint from argo workflow
 	loadedBlueprint := workflow_2.LoadBlueprint(argoWf)
 
-	fmt.Println("loadedBlueprint", loadedBlueprint)
-	sampleNode := loadedBlueprint.GetNodes()[0]
-	fmt.Println(sampleNode)
-	fmt.Println(loadedBlueprint.GetNodes()[1])
+	// loadedBlueprint.AddNode("step3", &workflow_2.Template{
+	// 	Id: "step3",
+	// 	Inputs: []workflow_2.Input{
+	// 		{
+	// 			Name:  "url",
+	// 			Value: []byte("{{workflow.parameters.url}}"),
+	// 		},
+	// 	},
+	// 	TemplateArgoRef: workflow_2.TemplateArgoRef{
+	// 		Name:     "my-http",
+	// 		Template: "my-http",
+	// 	},
+	// })
 
-	// Sample blueprint ???
+	// loadedBlueprint.AddEdge("step2", "step3")
+
+	fmt.Println("loadedBlueprint", loadedBlueprint)
+	fmt.Println(loadedBlueprint.GetNodes())
 
 	// Blueprints use for create a workflow, We persis the blueprint
+	// Goal: persis blueprint to a json file, this file can import to argo and run perfectly (Done)
+
+	// loadedBlueprint.Save()
 }
 
 // func testWorkflowModel() {

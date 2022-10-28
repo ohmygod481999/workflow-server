@@ -1,0 +1,92 @@
+{
+	"metadata": {
+		"name": "test-98",
+		"namepsace": "argo"
+	},
+	"spec": {
+		"entrypoint": "main",
+		"arguments": {
+			"parameters": [
+				{
+					"name": "url",
+					"value": "https://google.com",
+					"valueFrom": {
+						"path": ""
+					}
+				}
+			]
+		},
+		"templates": [
+			{
+				"name": "main",
+				"inputs": {
+					"parameters": null,
+					"artifacts": null
+				},
+				"outputs": {
+					"parameters": null,
+					"artifacts": null,
+					"exitCode": ""
+				},
+				"dag": {
+					"tasks": [
+						{
+							"name": "step1",
+							"arguments": {
+								"parameters": [
+									{
+										"name": "url",
+										"value": "{{workflow.parameters.url}}",
+										"valueFrom": {
+											"path": ""
+										}
+									}
+								]
+							},
+							"templateRef": {
+								"name": "my-http",
+								"template": "my-http"
+							}
+						},
+						{
+							"name": "step2",
+							"arguments": {
+								"parameters": [
+									{
+										"name": "url",
+										"value": "{{workflow.parameters.url}}",
+										"valueFrom": {
+											"path": ""
+										}
+									}
+								]
+							},
+							"templateRef": {
+								"name": "my-http",
+								"template": "my-http"
+							},
+							"depends": "step1"
+						}
+					]
+				}
+			}
+		]
+	},
+	"status": {
+		"resourcesDuration": {
+			"cpu": 0,
+			"int": 0
+		},
+		"storedWorkflowTemplateSpec": {
+			"arguments": {}
+		},
+		"artifactRepositoryRef": {
+			"artifactRepository": {
+				"s3": {
+					"accessKeySecret": {},
+					"secretKeySecret": {}
+				}
+			}
+		}
+	}
+}

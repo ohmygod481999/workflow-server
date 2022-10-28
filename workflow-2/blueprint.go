@@ -3,8 +3,8 @@ package workflow_2
 type Blueprint interface {
 	AddNode()
 	AddEdge()
-	GetNodes()
+	GetNodes() []*Template
+	GetNode(id string) *Template
 	Submit() Workflow
-	Load()
-	Save()
+	Save() error
 }

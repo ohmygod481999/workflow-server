@@ -39,19 +39,27 @@ type Dag struct {
 }
 
 type Template struct {
-	Name      string    `json:"name,omitempty"`
-	Inputs    Inputs    `json:"inputs,omitempty"`
-	Outputs   Outputs   `json:"outputs,omitempty"`
-	MetaData  MetaData  `json:"metaData,omitempty"`
+	Name     string   `json:"name,omitempty"`
+	Inputs   Inputs   `json:"inputs,omitempty"`
+	Outputs  Outputs  `json:"outputs,omitempty"`
+	MetaData MetaData `json:"metaData,omitempty"`
+}
+
+type DagTemplate struct {
+	Template
+	Dag Dag `json:"dag,omitempty"`
+}
+
+type ContainerTemplate struct {
+	Template
 	Container Container `json:"container,omitempty"`
-	Dag       Dag       `json:"dag,omitempty"`
 }
 
 type Spec struct {
-	Entrypoint          string              `json:"entrypoint,omitempty"`
-	Arguments           Arguments           `json:"arguments,omitempty"`
-	Templates           []Template          `json:"templates,omitempty"`
-	WorkflowTemplateRef WorkflowTemplateRef `json:"workflowTemplateRef,omitempty"`
+	Entrypoint string        `json:"entrypoint,omitempty"`
+	Arguments  Arguments     `json:"arguments,omitempty"`
+	Templates  []DagTemplate `json:"templates,omitempty"`
+	// WorkflowTemplateRef WorkflowTemplateRef `json:"workflowTemplateRef,omitempty"`
 }
 
 type WorkflowTemplateSpec struct {

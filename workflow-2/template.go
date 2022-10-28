@@ -19,6 +19,7 @@ type Template struct {
 
 	TemplateArgoRef TemplateArgoRef `json:"templateArgoRef,omitempty"`
 	Container       *Container      `json:"container,omitempty"`
+	ParentIds       []string        `json:"parentIds,omitempty"`
 }
 
 type TemplateGroup struct {
@@ -36,16 +37,16 @@ func LoadTemplateGroupFromArgo(argoWorkflowTemplate *argo_adapter.WorkflowTempla
 
 	for _, argotemplate := range argoWorkflowTemplate.Spec.Templates {
 		var container *Container
-		if argotemplate.Container.Image != "" {
-			container = &Container{
-				Name:    argotemplate.Container.Name,
-				Image:   argotemplate.Container.Image,
-				Command: argotemplate.Container.Command,
-				Args:    argotemplate.Container.Args,
-			}
-		} else {
-			container = nil
-		}
+		// if argotemplate.Container.Image != "" {
+		// 	container = &Container{
+		// 		Name:    argotemplate.Container.Name,
+		// 		Image:   argotemplate.Container.Image,
+		// 		Command: argotemplate.Container.Command,
+		// 		Args:    argotemplate.Container.Args,
+		// 	}
+		// } else {
+		// 	container = nil
+		// }
 		var inputs []Input
 		for _, param := range argotemplate.Inputs.Parameters {
 			inputs = append(inputs, Input{
@@ -66,6 +67,10 @@ func LoadTemplateGroupFromArgo(argoWorkflowTemplate *argo_adapter.WorkflowTempla
 			Configs:   []Config{},
 			Ouputs:    outputs,
 			Container: container,
+			TemplateArgoRef: TemplateArgoRef{
+				Name:     id.(string),
+				Template: argotemplate.Name,
+			},
 		})
 	}
 
@@ -84,6 +89,10 @@ func (template *Template) String() string {
 	result += fmt.Sprintf("\n\tInputs:")
 	for _, input := range template.Inputs {
 		result += fmt.Sprintf("\n\t\t- %s: %s", input.Name, input.Value)
+	}
+	result += fmt.Sprintf("\n\tParents:")
+	for _, parentId := range template.ParentIds {
+		result += fmt.Sprintf("\n\t\t- %s", parentId)
 	}
 	result += fmt.Sprintf("\n\tOuputs:")
 	for _, output := range template.Ouputs {
