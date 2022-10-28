@@ -12,14 +12,16 @@ import (
 )
 
 type ArgoBlueprint struct {
-	Dag     dag.DAG `json:"dag,omitempty"`
-	Inputs  []Input
-	Outputs []Output
+	argoAdapter *argo_adapter.ArgoAdapter
+	Dag         dag.DAG `json:"dag,omitempty"`
+	Inputs      []Input
+	Outputs     []Output
 }
 
-func NewArgoBlueprint() *ArgoBlueprint {
+func NewArgoBlueprint(argoAdapter *argo_adapter.ArgoAdapter) *ArgoBlueprint {
 	return &ArgoBlueprint{
-		Dag: *dag.NewDAG(),
+		Dag:         *dag.NewDAG(),
+		argoAdapter: argoAdapter,
 	}
 }
 
@@ -55,7 +57,7 @@ func (workflow *ArgoBlueprint) GetNode(id string) *Template {
 	return result
 }
 
-func (blueprint *ArgoBlueprint) Save() error {
+func (blueprint *ArgoBlueprint) exportJson() []byte {
 	var workflowParams []argo_adapter.Parameter
 	for _, param := range blueprint.Inputs {
 		workflowParams = append(workflowParams, argo_adapter.Parameter{
@@ -124,10 +126,16 @@ func (blueprint *ArgoBlueprint) Save() error {
 		},
 	}
 
-	str, _ := json.MarshalIndent(persisWorkflow, "", "\t")
+	jsonBytes, _ := json.MarshalIndent(persisWorkflow, "", "\t")
+
+	return jsonBytes
+}
+
+func (blueprint *ArgoBlueprint) Save() error {
+	jsonBytes := blueprint.exportJson()
 
 	filename := "saved-blueprint.json"
-	err := ioutil.WriteFile(filename, str, 0644)
+	err := ioutil.WriteFile(filename, jsonBytes, 0644)
 
 	fmt.Println("Saved blueprint to " + filename)
 
@@ -135,7 +143,22 @@ func (blueprint *ArgoBlueprint) Save() error {
 }
 
 func (blueprint *ArgoBlueprint) Submit() Workflow {
-	fmt.Println("Saved blueprint")
+	jsonBytes := blueprint.exportJson()
+
+	var argoWorkflow argo_adapter.Workflow
+	err := json.Unmarshal(jsonBytes, &argoWorkflow)
+
+	if err != nil {
+		fmt.Println("err", err)
+	}
+
+	workflowSubmitBody := argo_adapter.WorkflowSubmitBody{
+		Workflow: argoWorkflow,
+	}
+
+	blueprint.argoAdapter.SubmitWorkflow(workflowSubmitBody)
+
+	fmt.Println("Submitted")
 
 	return NewArgoWorkflow(blueprint)
 }
@@ -159,9 +182,9 @@ func (argoBlueprint *ArgoBlueprint) String() string {
 	return sb.String()
 }
 
-func LoadBlueprint(argoWorkflow argo_adapter.Workflow) *ArgoBlueprint {
+func LoadBlueprint(argoWorkflow argo_adapter.Workflow, argoAdapter *argo_adapter.ArgoAdapter) *ArgoBlueprint {
 	// Add Nodes
-	blueprint := NewArgoBlueprint()
+	blueprint := NewArgoBlueprint(argoAdapter)
 
 	entrypoint := argoWorkflow.Spec.Entrypoint
 

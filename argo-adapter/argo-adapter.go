@@ -24,6 +24,10 @@ type WorkflowTemplateSubmitBody struct {
 	} `json:"submitOptions"`
 }
 
+type WorkflowSubmitBody struct {
+	Workflow Workflow `json:"workflow,omitempty"`
+}
+
 type ArgoAdapter struct {
 	client resty.Client
 	uri    string
@@ -81,6 +85,25 @@ func (argoAdapter *ArgoAdapter) GetWorkflowTemplates() *WorkflowTemplates {
 
 	return &wfTemplates
 
+}
+
+func (argoAdapter *ArgoAdapter) SubmitWorkflow(body WorkflowSubmitBody) (*Workflow, error) {
+	url := fmt.Sprintf("%s/api/v1/workflows/argo", argoAdapter.uri)
+	res, err := argoAdapter.client.R().SetBody(body).Post(url)
+
+	if err != nil {
+		fmt.Printf("client: error making http request: %s\n", err)
+		return nil, err
+	}
+
+	var wf Workflow
+	err = json.Unmarshal(res.Body(), &wf)
+
+	if err != nil {
+		fmt.Printf("Error: %s", err)
+	}
+
+	return &wf, nil
 }
 
 func (argoAdapter *ArgoAdapter) SubmitWorkflowTemplate(body WorkflowTemplateSubmitBody) (*Workflow, error) {

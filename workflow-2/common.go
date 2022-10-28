@@ -7,7 +7,17 @@ type Container struct {
 	Args    []string `json:"args"`
 }
 
-type ContainerNode struct {
-	Node
-	Container Container
+type Input struct {
+	Name  string
+	Value []byte
+}
+
+type Config struct {
+	Name  string
+	Value []byte
+}
+
+type Output struct {
+	Name  string
+	Value []byte
 }

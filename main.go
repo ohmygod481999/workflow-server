@@ -84,13 +84,13 @@ func main() {
 	// 	return c.JSON(blueprint)
 	// })
 
-	testTemplateModel()
+	testTemplateModel(argoAdapter)
 	// testWorkflowModel()
 	app.Listen(":3000")
 
 }
 
-func testTemplateModel() {
+func testTemplateModel(argoAdapter *argo_adapter.ArgoAdapter) {
 	// Read Worflow template data from json file
 	// json_bytes, err := ioutil.ReadFile("saved-blueprint.json")
 	json_bytes, err := ioutil.ReadFile("workflow-template.json")
@@ -112,7 +112,7 @@ func testTemplateModel() {
 	fmt.Println(string(str))
 
 	// Make a custom blueprint and add node, edge to them
-	blueprint := workflow_2.NewArgoBlueprint()
+	blueprint := workflow_2.NewArgoBlueprint(argoAdapter)
 
 	blueprint.AddNode(templateGroup.Templates[0].Id, &templateGroup.Templates[0])
 	blueprint.AddNode(templateGroup.Templates[1].Id, &templateGroup.Templates[1])
@@ -133,24 +133,25 @@ func testTemplateModel() {
 	}
 
 	// Create Blueprint from argo workflow
-	loadedBlueprint := workflow_2.LoadBlueprint(argoWf)
+	loadedBlueprint := workflow_2.LoadBlueprint(argoWf, argoAdapter)
 
-	// loadedBlueprint.AddNode("step3", &workflow_2.Template{
-	// 	Id: "step3",
-	// 	Inputs: []workflow_2.Input{
-	// 		{
-	// 			Name:  "url",
-	// 			Value: []byte("{{workflow.parameters.url}}"),
-	// 		},
-	// 	},
-	// 	TemplateArgoRef: workflow_2.TemplateArgoRef{
-	// 		Name:     "my-http",
-	// 		Template: "my-http",
-	// 	},
-	// })
+	loadedBlueprint.AddNode("step3", &workflow_2.Template{
+		Id: "step3",
+		Inputs: []workflow_2.Input{
+			{
+				Name:  "url",
+				Value: []byte("{{workflow.parameters.url}}"),
+			},
+		},
+		TemplateArgoRef: workflow_2.TemplateArgoRef{
+			Name:     "my-http",
+			Template: "my-http",
+		},
+	})
 
-	// loadedBlueprint.AddEdge("step2", "step3")
+	loadedBlueprint.AddEdge("step1", "step3")
 
+	loadedBlueprint.Submit()
 	fmt.Println("loadedBlueprint", loadedBlueprint)
 	fmt.Println(loadedBlueprint.GetNodes())
 
